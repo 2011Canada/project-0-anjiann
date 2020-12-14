@@ -13,9 +13,10 @@ public class BankLauncher {
 	public static MenuSelector menuSelector = new MenuSelector();
 
 	public static void main(String[] args) {
-		BankMenu bankMenu = new BankMenu();
-		bankMenu.welcome();
-		UserType userType = bankMenu.getUserType();
+		while(true) {	
+			System.out.println(menuSelector.display());
+			menuSelector.handleInput();
+		}
 	}
 
 	public static User getCurrentUser() {

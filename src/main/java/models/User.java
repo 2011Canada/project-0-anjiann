@@ -1,5 +1,5 @@
 package models;
 
-public abstract class User {
+public abstract class User implements Displayable {
 
 }
