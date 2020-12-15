@@ -1,4 +1,6 @@
-package menus;
+package menus.CustomerViews;
+
+import menus.Menu;
 
 public class AccountMenu extends Menu {
 	public AccountMenu() {
@@ -12,6 +14,7 @@ public class AccountMenu extends Menu {
 	public void manageUserInput() {
 		System.out.println("Please enter the option number: ");
 		String input = userInput.nextLine();
+		
 	}
 
 }

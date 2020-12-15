@@ -1,6 +1,7 @@
-package menus;
+package menus.CustomerViews;
 
 import launcher.BankLauncher;
+import menus.Menu;
 import models.Account;
 import services.AccountService;
 import services.UserService;
@@ -28,10 +29,12 @@ public class CustomerMenu extends Menu {
 			
 			try {
 				String input = userInput.nextLine();
-				int choice = Integer.parseInt(input) - 1;
+				int choice = Integer.parseInt(input);
 				switch(choice) {
-					case 0: BankLauncher.menuSelector.moveToSubMenu(0); break;
 					case 1: BankLauncher.menuSelector.moveToSubMenu(1); break;
+					case 2: BankLauncher.menuSelector.moveToSubMenu(2); break;
+					case 3: BankLauncher.menuSelector.moveToSubMenu(3); break;
+					case 4: BankLauncher.menuSelector.moveToSubMenu(4); break;
 					default: System.out.println("Not a valid choice. Please enter the option number"); break;
 				}
 			} catch(NumberFormatException e) {

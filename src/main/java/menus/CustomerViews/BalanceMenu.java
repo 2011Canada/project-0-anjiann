@@ -1,4 +1,6 @@
-package menus;
+package menus.CustomerViews;
+
+import menus.Menu;
 
 public class BalanceMenu extends Menu {
 
