@@ -17,9 +17,7 @@ import models.Employee;
 import models.User;
 import util.ConnectionFactory;
 
-public class UserDAO {
-	protected ConnectionFactory cf = ConnectionFactory.getConnectionFactory();
-	
+public class UserDAO extends DAO {	
 	protected ResultSet saveUser(String username, String password) throws SQLException {
 		Connection conn = cf.getConnection();
 
@@ -38,7 +36,7 @@ public class UserDAO {
 		return res;
 	}
 	
-	private void setUserFields(User u, ResultSet res) throws SQLException {
+	protected void setUserFields(User u, ResultSet res) throws SQLException {
 		u.setUserId(res.getInt("user_id"));
 		u.setUsername(res.getString("username"));
 		u.setPassword(res.getString("password"));
@@ -57,6 +55,7 @@ public class UserDAO {
 
 			if(res.next()) {
 				User user = new Customer();
+				
 				setUserFields(user, res);
 				
 				return user;

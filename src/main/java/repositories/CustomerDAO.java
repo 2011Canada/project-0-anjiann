@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import models.Customer;
+import models.User;
 
 public class CustomerDAO extends UserDAO {
 	public Customer saveCustomer(String username, String password) {
@@ -33,5 +34,34 @@ public class CustomerDAO extends UserDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public User findCustomer(String username, String password) {
+		try {
+			Connection conn = cf.getConnection();
+
+			String queryString = "(select * from (\"users\" u inner join where \"username\" = ? and \"password\" = ?) u"
+					+ "inner join"
+					+ "\"customers\" a"
+					+ "on u.\"user_id\" = a.\"customer_id\";";
+			PreparedStatement query = conn.prepareStatement(queryString);
+			query.setString(1, username);
+			query.setString(2, password);
+			
+			ResultSet res = query.executeQuery();
+
+			if(res.next()) {
+				User user = new Customer();
+				
+				setUserFields(user, res);
+				
+				return user;
+			} 
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }
