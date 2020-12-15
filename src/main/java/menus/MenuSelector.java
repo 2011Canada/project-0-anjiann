@@ -5,7 +5,7 @@ import java.util.List;
 
 import models.Displayable;
 import repositories.*;
-import services.UserService;
+import services.*;
 
 public class MenuSelector implements Displayable {
 
@@ -17,24 +17,22 @@ public class MenuSelector implements Displayable {
 	}
 	
 	private void initializeTree() {
-		UserDAO userDAO = new UserDAO();
-		CustomerDAO customerDAO = new CustomerDAO();
-		UserService userService = new UserService(userDAO, customerDAO);
-
+		BankMenus bankMenus = BankMenus.getInstance();
 		
-		MainMenu mainMenu = new MainMenu();
-		rootMenu = new MenuNode(mainMenu);
+		rootMenu = new MenuNode(bankMenus.getMainMenu());
 		currMenu = rootMenu;
 		
-		MenuNode loginMenuNode = new MenuNode(new LoginMenu(userService));
-		MenuNode registerMenuNode = new MenuNode(new RegisterMenu(userService));
-		
+		MenuNode loginMenuNode = new MenuNode(bankMenus.getLoginMenu());
+		MenuNode registerMenuNode = new MenuNode(bankMenus.getRegisterMenu());
+		MenuNode customerMenuNode = new MenuNode(bankMenus.getCustomerMenu());
+
 		rootMenu.children.add(loginMenuNode);
 		rootMenu.children.add(registerMenuNode);
 		loginMenuNode.parent = rootMenu;
 		registerMenuNode.parent = rootMenu;
 		
-//		MenuNode customerMenuNode = new MenuNode()
+		loginMenuNode.children.add(customerMenuNode);
+		
 	}
 	
 	

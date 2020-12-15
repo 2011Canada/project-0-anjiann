@@ -1,18 +1,22 @@
 package menus;
 
 import launcher.BankLauncher;
+import models.Account;
+import services.AccountService;
 import services.UserService;
 
 public class CustomerMenu extends Menu {
 	UserService userService;
+	AccountService accountService;
 	
-	public CustomerMenu(UserService userService) {
+	public CustomerMenu(UserService userService, AccountService accountService) {
 		this.userService = userService;
+		this.accountService = accountService;
 	}
 	
 	@Override
 	public void manageUserInput() {
-		Account account = userService.findAccount(BankLauncher.getCurrentUser());
+		Account account = accountService.findAccount(BankLauncher.getCurrentUser());
 		if(account == null) {
 			System.out.println("1) apply for account");
 			BankLauncher.menuSelector.moveToSubMenu(0);

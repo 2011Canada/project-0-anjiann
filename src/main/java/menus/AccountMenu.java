@@ -10,7 +10,8 @@ public class AccountMenu extends Menu {
 	
 	@Override
 	public void manageUserInput() {
-		
+		System.out.println("Please enter the option number: ");
+		String input = userInput.nextLine();
 	}
 
 }

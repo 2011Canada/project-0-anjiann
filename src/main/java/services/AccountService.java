@@ -1,15 +1,18 @@
 package services;
 
+import models.Account;
 import models.User;
+import repositories.AccountDAO;
 
 public class AccountService {
-	private static final AccountService instance = new AccountService();
+	AccountDAO accountDAO;
 	
-	private AccountService() {
-		
+	public AccountService(AccountDAO accountDAO) {
+		this.accountDAO = accountDAO;
 	}
-	
-	public AccountService getInstance() {
-		return instance;
+
+	public Account findAccount(User currentUser) {
+		
+		return null;
 	}
 }
