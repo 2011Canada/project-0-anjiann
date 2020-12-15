@@ -3,22 +3,33 @@ package services;
 import exceptions.*;
 import launcher.BankLauncher;
 import models.*;
+import repositories.CustomerDAO;
 import repositories.UserDAO;
 
 public class UserService {	
 	private UserDAO userDAO;
+	private CustomerDAO customerDAO;
 	
-	public UserService(UserDAO userDAO) {
+	public UserService(UserDAO userDAO, CustomerDAO customerDAO) {
 		this.userDAO = userDAO;
+		this.customerDAO = customerDAO;
 	}
 	
-	public Displayable login(String username, String password) {
-		try {
-			User user = userDAO.findUser(username, password);
-			BankLauncher.setCurrentUser(user);
-			return () -> "welcome" + user;
-		} catch (UserNotFoundException | InternalErrorException e) {
-			return ()->e.getMessage();
+	public User login(String username, String password) {
+		User user = userDAO.findUserByCredentials(username, password);
+		BankLauncher.setCurrentUser(user);
+		
+		BankLauncher.logger.debug(user + "has logged in");
+		return user;
+	}
+	
+	public boolean register(String username, String password) {
+		if(userDAO.findUser(username)) {
+			return false;
 		}
+		
+		customerDAO.saveCustomer(username, password);
+		
+		return true;
 	}
 }

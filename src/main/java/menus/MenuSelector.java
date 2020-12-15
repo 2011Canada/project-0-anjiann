@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Displayable;
+import repositories.*;
+import services.UserService;
 
 public class MenuSelector implements Displayable {
 
@@ -15,15 +17,24 @@ public class MenuSelector implements Displayable {
 	}
 	
 	private void initializeTree() {
+		UserDAO userDAO = new UserDAO();
+		CustomerDAO customerDAO = new CustomerDAO();
+		UserService userService = new UserService(userDAO, customerDAO);
+
+		
 		MainMenu mainMenu = new MainMenu();
 		rootMenu = new MenuNode(mainMenu);
 		currMenu = rootMenu;
 		
-		MenuNode loginMenuNode = new MenuNode(new LoginMenu());
-		MenuNode registerMenuNode = new MenuNode(new RegisterMenu());
+		MenuNode loginMenuNode = new MenuNode(new LoginMenu(userService));
+		MenuNode registerMenuNode = new MenuNode(new RegisterMenu(userService));
 		
 		rootMenu.children.add(loginMenuNode);
 		rootMenu.children.add(registerMenuNode);
+		loginMenuNode.parent = rootMenu;
+		registerMenuNode.parent = rootMenu;
+		
+//		MenuNode customerMenuNode = new MenuNode()
 	}
 	
 	
