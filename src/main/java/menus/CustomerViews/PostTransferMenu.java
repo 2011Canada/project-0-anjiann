@@ -29,14 +29,14 @@ public class PostTransferMenu extends Menu {
 		input = userInput.nextLine();
 		try {
 			double amount = Double.parseDouble(input);
-			if(amount <= 0) {
+			if(amount <= 0 || amount > srcAccount.getBalance()) {
 				throw new NumberFormatException();
 			}
 			
 			accountService.withdrawAmount(srcAccount, amount);
 			accountService.createTransfer(srcAccount.getAccountId(), dstAccount.getAccountId(), amount);
 			srcAccount = accountService.findAccount(currUserId);
-			System.out.println("your new balance is: " + srcAccount.getBalance());
+			System.out.println("your new balance is: $" + srcAccount.getBalance());
 		} catch(NumberFormatException e) {
 			System.out.println("Invalid dollar amount. Try again");
 		}

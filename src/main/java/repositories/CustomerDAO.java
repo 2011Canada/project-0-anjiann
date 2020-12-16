@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+import models.Account;
 import models.Customer;
 import models.User;
 
@@ -63,5 +66,27 @@ public class CustomerDAO extends UserDAO {
 		}
 		
 		return null;
+	}
+	
+	public List<User> findCustomers() {
+		Connection conn = cf.getConnection();
+		String queryString = "select * from (\"users\" u inner join \"customers\" c on u.\"user_id\" = c.\"customer_id\");";
+		
+		List<User> customers = new ArrayList<>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery(queryString);
+			if(res.next()) {
+				String name = res.getString("username");
+				String password = res.getString("password");
+				int accountId = res.getInt("customer_id");
+				
+				customers.add(new Customer(accountId, name, password));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+
+		return customers;
 	}
 }

@@ -10,7 +10,7 @@ public class BankLauncher {
 	private static User currentUser;
 	public static MenuSelector menuSelector = new MenuSelector();
 	public static Logger logger = LogManager.getLogger("com.revature.bank");
-
+	public static Logger employeeLogger = LogManager.getLogger("com.revature.bank.employeeDebug");
 
 	public static void main(String[] args) {
 		logger.info("server has started");

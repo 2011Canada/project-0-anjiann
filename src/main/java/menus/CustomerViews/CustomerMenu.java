@@ -9,7 +9,6 @@ import services.UserService;
 public class CustomerMenu extends Menu {
 	@Override
 	public void manageUserInput() {
-		System.out.println("Please enter the option number");
 		Account account = accountService.findAccount(BankLauncher.getCurrentUser().getUserId());
 		try {
 			if(account == null) {
@@ -21,6 +20,7 @@ public class CustomerMenu extends Menu {
 				}
 				BankLauncher.menuSelector.moveToSubMenu(0);
 			} else {
+				System.out.println("Which account would you like to access:");
 				System.out.println("1) " + account.getName());
 				String input = userInput.nextLine();
 				int choice = Integer.parseInt(input);
@@ -28,6 +28,7 @@ public class CustomerMenu extends Menu {
 					throw new NumberFormatException();
 				}
 				BankLauncher.menuSelector.moveToSubMenu(1);
+				System.out.println("your account application has been submitted.");
 			}
 		}
 		catch(NumberFormatException e) {

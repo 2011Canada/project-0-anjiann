@@ -10,7 +10,7 @@ public class BalanceMenu extends Menu {
 	public void manageUserInput() {
 		User currentUser = BankLauncher.getCurrentUser();
 		Account account = accountService.findAccount(currentUser.getUserId());
-		System.out.println("your balance is "+ account.getBalance());
+		System.out.println("your balance is $"+ account.getBalance());
 
 		displayBackMenu();
 	}

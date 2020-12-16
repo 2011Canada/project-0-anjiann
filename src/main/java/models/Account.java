@@ -14,6 +14,7 @@ public class Account {
 		this.name = name;
 		this.accountId = accountId;
 		this.balance = balance;
+		this.status = status;
 	}
 
 	public int getAccountId() {

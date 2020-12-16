@@ -1,5 +1,7 @@
 package services;
 
+import java.util.List;
+
 import exceptions.*;
 import launcher.BankLauncher;
 import models.*;
@@ -19,7 +21,7 @@ public class UserService {
 		User user = userDAO.findUserByCredentials(username, password);
 		BankLauncher.setCurrentUser(user);
 		
-		BankLauncher.logger.debug(user + "has logged in");
+		if(user != null) BankLauncher.employeeLogger.info(user.getUsername() + " has logged in");
 		return user;
 	}
 	
@@ -29,11 +31,16 @@ public class UserService {
 		}
 		
 		customerDAO.saveCustomer(username, password);
-		
+		BankLauncher.employeeLogger.info("registered a new user with username " + username);
+
 		return true;
 	}
 	
 	public String findUsername(int userId) {
 		return userDAO.findUsername(userId);
+	}
+	
+	public List<User> findUsers() {
+		return customerDAO.findCustomers();
 	}
 }

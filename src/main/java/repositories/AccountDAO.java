@@ -50,8 +50,9 @@ public class AccountDAO extends DAO {
 				String name = res.getString("name");
 				double balance = res.getDouble("balance");
 				int accountId = res.getInt("account_id");
+				int status = res.getInt("status");
 				
-				return new Account(name, accountId, balance);
+				return new Account(name, accountId, balance, status);
 			}
 			
 		} catch (SQLException e) {
@@ -98,7 +99,7 @@ public class AccountDAO extends DAO {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet res = stmt.executeQuery(queryString);
-			if(res.next()) {
+			while(res.next()) {
 				transfers.add(new Transfer(res.getInt(1), res.getInt(2), res.getDouble(3)));
 			}
 		} catch(SQLException e) {
@@ -141,15 +142,13 @@ public class AccountDAO extends DAO {
 		}	
 	}
 
-	public List<Account> findAccounts() {
+	private List<Account> findAccounts(String queryString) {
 		Connection conn = cf.getConnection();
-		String queryString = "select * from accounts where \"status\" = 0;";
-		
 		List<Account> accounts = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet res = stmt.executeQuery(queryString);
-			if(res.next()) {
+			while(res.next()) {
 				String name = res.getString("name");
 				int accountId = res.getInt("account_id");
 				double balance = res.getDouble("balance");
@@ -161,6 +160,16 @@ public class AccountDAO extends DAO {
 		}
 
 		return accounts;
+	}
+	public List<Account> findAccounts() {
+		String queryString = "select * from accounts";
+		return findAccounts(queryString);
+	}
+	
+	public List<Account> findPendingAccounts() {
+		String queryString = "select * from accounts where \"status\" = 0;";
+		
+		return findAccounts(queryString);
 	}
 
 	public void updateAccountStatus(int accountId, int accountStatus) {

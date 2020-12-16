@@ -9,7 +9,12 @@ public class AccountApprovalMenu extends Menu {
 
 	@Override
 	public void manageUserInput() {
-		List<Account> pendingAccounts = accountService.findAccounts();
+		List<Account> pendingAccounts = accountService.findPendingAccounts(0);
+		if(pendingAccounts.size() == 0) {
+			System.out.println("There are no pending accounts");
+			displayBackMenu();
+			return;
+		}
 		for(int i = 0; i < pendingAccounts.size(); i++) {
 			Account account = pendingAccounts.get(i);
 			String username = userService.findUsername(account.getAccountId());
@@ -31,9 +36,10 @@ public class AccountApprovalMenu extends Menu {
 				case 2: accountStatus = 2; break;
 				default: throw new NumberFormatException();
 			}
-			accountService.updateAccountStatus(selectedAccount.getAccountId(), accountStatus);
+			accountService.updateAccountStatus(selectedAccount, accountStatus);
 		} catch(NumberFormatException | IndexOutOfBoundsException e) {
 			System.out.println("Not a valid choice. Please enter the option number");
+			return;
 		}
 		
 		displayBackMenu();

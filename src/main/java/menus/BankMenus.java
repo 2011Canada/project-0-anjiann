@@ -25,7 +25,7 @@ public class BankMenus {
 	
 	private EmployeeMenu employeeMenu;
 	private AccountApprovalMenu accountApprovalMenu;
-	private AccountsViewMenu accountsViewMenu;
+	private ViewCustomersMenu viewCustomersMenu;
 	private TransactionsMenu transactionsMenu;
 	
 	private BankMenus() {
@@ -46,7 +46,7 @@ public class BankMenus {
 		employeeMenu = new EmployeeMenu();
 		accountApprovalMenu = new AccountApprovalMenu();
 		transactionsMenu = new TransactionsMenu();
-		accountsViewMenu = new AccountsViewMenu();
+		viewCustomersMenu = new ViewCustomersMenu();
 	}
 
 	public static BankMenus getInstance() {
@@ -109,8 +109,8 @@ public class BankMenus {
 		return accountApprovalMenu;
 	}
 
-	public AccountsViewMenu getAccountsViewMenu() {
-		return accountsViewMenu;
+	public ViewCustomersMenu getViewCustomersMenu() {
+		return viewCustomersMenu;
 	}
 	
 	public TransactionsMenu getTransactionsMenu() {

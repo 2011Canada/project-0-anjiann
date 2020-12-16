@@ -15,7 +15,7 @@ public abstract class Menu implements Displayable{
 	protected Scanner userInput = new Scanner(System.in);
 	protected AccountService accountService = ServiceProvider.getInstance().getAccountService();
 	protected UserService userService = ServiceProvider.getInstance().getUserService();
-	
+
 	public String display() {
 		String display = "\n================\n";
 		for(Displayable line : lines) {

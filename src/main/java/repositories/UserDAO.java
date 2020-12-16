@@ -118,28 +118,5 @@ public class UserDAO extends DAO {
 		
 		return false;
 	}
-	
-	
-	public List<User> findUsers() {
-		String queryString = "select * from users where \"username\" = \'BS\'";
-		Connection conn = cf.getConnection();
-		try {
-//			Statement stmt = conn.createStatement();
-//			ResultSet res = stmt.executeQuery(queryString);
-			queryString = "select * from \"users\" where \"username\" = ? ;";
-			PreparedStatement query = conn.prepareStatement(queryString);
-			query.setString(1, "BS");
-			
-			ResultSet res = query.executeQuery();
-			if(res.next()) {
-				System.out.println(res.getInt(1));
-				System.out.println(res.getString(2));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 }
