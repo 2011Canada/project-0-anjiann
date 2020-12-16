@@ -42,11 +42,14 @@ public class UserDAO extends DAO {
 		u.setPassword(res.getString("password"));
 	}
 	
-	public User findUserByCredentials(String username, String password) {
+	//TODO refactor zzz
+	private User findUserByCredentials(String userType, String username, String password) {
 		try {
 			Connection conn = cf.getConnection();
-
-			String queryString = "select * from \"users\" where \"username\" = ? and \"password\" = ? ;";
+			String userTypeId = (userType == "customers") ? "customer_id" : "employee_id";
+			String queryString = "select * from (\"users\" u inner join \"" + userType + "\" c "
+					+ "on u.\"user_id\" = c.\"" + userTypeId + "\") "
+					+ "where \"username\" = ? and \"password\" = ?;";
 			PreparedStatement query = conn.prepareStatement(queryString);
 			query.setString(1, username);
 			query.setString(2, password);
@@ -54,7 +57,7 @@ public class UserDAO extends DAO {
 			ResultSet res = query.executeQuery();
 
 			if(res.next()) {
-				User user = new Customer();
+				User user = (userType == "customers") ? new Customer() : new Employee();
 				
 				setUserFields(user, res);
 				
@@ -66,6 +69,12 @@ public class UserDAO extends DAO {
 		}
 		
 		return null;
+	}
+	public User findUserByCredentials(String username, String password) {
+		User customer = findUserByCredentials("customers", username, password);
+		User employee = findUserByCredentials("employees", username, password);
+
+		return customer == null ? employee : customer;
 	}
 	
 	public String findUsername(int userId) {

@@ -46,4 +46,12 @@ public class AccountService {
 	public Account findAccount(String username) {
 		return accountDAO.findAccount(username);
 	}
+
+	public List<Account> findAccounts() {
+		return accountDAO.findAccounts();
+	}
+
+	public void updateAccountStatus(int accountId, int accountStatus) {
+		accountDAO.updateAccountStatus(accountId, accountStatus);
+	}
 }

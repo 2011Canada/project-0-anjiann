@@ -25,12 +25,10 @@ public class BankMenus {
 	
 	private EmployeeMenu employeeMenu;
 	private AccountApprovalMenu accountApprovalMenu;
+	private AccountsViewMenu accountsViewMenu;
 	private TransactionsMenu transactionsMenu;
 	
 	private BankMenus() {
-		UserService userService = ServiceProvider.getInstance().getUserService();
-		AccountService accountService = ServiceProvider.getInstance().getAccountService();
-		
 		mainMenu = new MainMenu();
 		loginMenu = new LoginMenu();
 		registerMenu = new RegisterMenu();
@@ -46,8 +44,9 @@ public class BankMenus {
 		acceptTransferMenu = new AcceptTransferMenu();
 		
 		employeeMenu = new EmployeeMenu();
-		transactionsMenu = new TransactionsMenu();
 		accountApprovalMenu = new AccountApprovalMenu();
+		transactionsMenu = new TransactionsMenu();
+		accountsViewMenu = new AccountsViewMenu();
 	}
 
 	public static BankMenus getInstance() {
@@ -110,6 +109,10 @@ public class BankMenus {
 		return accountApprovalMenu;
 	}
 
+	public AccountsViewMenu getAccountsViewMenu() {
+		return accountsViewMenu;
+	}
+	
 	public TransactionsMenu getTransactionsMenu() {
 		return transactionsMenu;
 	}

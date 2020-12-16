@@ -36,8 +36,9 @@ public class MenuSelector implements Displayable {
 		MenuNode acceptTransferMenuNode = new MenuNode(bankMenus.getAcceptTransferMenu());
 		
 		MenuNode employeeMenuNode = new MenuNode(bankMenus.getEmployeeMenu());
-		MenuNode transactionsMenuNode = new MenuNode(bankMenus.getTransactionsMenu());
 		MenuNode accountApprovalMenuNode = new MenuNode(bankMenus.getAccountApprovalMenu());
+		MenuNode accountsViewMenuNode = new MenuNode(bankMenus.getAccountsViewMenu());
+		MenuNode transactionsMenuNode = new MenuNode(bankMenus.getTransactionsMenu());
 
 		linkMenuNodes(rootMenu, loginMenuNode);
 		linkMenuNodes(rootMenu, registerMenuNode);
@@ -58,8 +59,9 @@ public class MenuSelector implements Displayable {
 		linkMenuNodes(transfersMenuNode, acceptTransferMenuNode);
 		
 		//== employee views subtree ==
-		linkMenuNodes(employeeMenuNode, transactionsMenuNode);
 		linkMenuNodes(employeeMenuNode, accountApprovalMenuNode);
+		linkMenuNodes(employeeMenuNode, accountsViewMenuNode);
+		linkMenuNodes(employeeMenuNode, transactionsMenuNode);
 	}
 	
 	private void linkMenuNodes(MenuNode parent, MenuNode child) {

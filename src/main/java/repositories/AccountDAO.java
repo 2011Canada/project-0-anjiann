@@ -101,12 +101,11 @@ public class AccountDAO extends DAO {
 			if(res.next()) {
 				transfers.add(new Transfer(res.getInt(1), res.getInt(2), res.getDouble(3)));
 			}
-			return transfers;
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return transfers;
 	}
 
 	public Account findAccount(String username) {
@@ -136,6 +135,41 @@ public class AccountDAO extends DAO {
 			PreparedStatement stmt = conn.prepareStatement(queryString);
 			stmt.setInt(1, transfer.getSrcAccountId());
 			stmt.setInt(2, transfer.getDstAccountId());
+			stmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+
+	public List<Account> findAccounts() {
+		Connection conn = cf.getConnection();
+		String queryString = "select * from accounts where \"status\" = 0;";
+		
+		List<Account> accounts = new ArrayList<>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery(queryString);
+			if(res.next()) {
+				String name = res.getString("name");
+				int accountId = res.getInt("account_id");
+				double balance = res.getDouble("balance");
+				int status = res.getInt("status");
+				accounts.add(new Account(name, accountId, balance, status));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+
+		return accounts;
+	}
+
+	public void updateAccountStatus(int accountId, int accountStatus) {
+		Connection conn = cf.getConnection();
+		String queryString = "update accounts set \"status\" = ? where \"account_id\" = ?;";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(queryString);
+			stmt.setInt(1, accountStatus);
+			stmt.setInt(2, accountId);
 			stmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
