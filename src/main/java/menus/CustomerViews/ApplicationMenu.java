@@ -11,15 +11,18 @@ public class ApplicationMenu extends Menu {
 	@Override
 	public void manageUserInput() {
 		// TODO Auto-generated method stub
+		System.out.println("Please give your account a name:");
+		String name = userInput.nextLine();
+
 		System.out.println("Please enter your initial deposit amount:");
 		System.out.print("$");
 		String input = userInput.nextLine();
 		try {
 			double initialAmount = Double.parseDouble(input);
-			accountService.createAccount(BankLauncher.getCurrentUser(), initialAmount);
+			accountService.createAccount(name, BankLauncher.getCurrentUser(), initialAmount);
 			BankLauncher.menuSelector.returnToPrevious();
 		} catch(NumberFormatException e) {
-			e.printStackTrace();
+			System.out.println("Not a valid dollar amount. Try again");
 		}
 	}
 

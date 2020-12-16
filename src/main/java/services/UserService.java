@@ -32,4 +32,8 @@ public class UserService {
 		
 		return true;
 	}
+	
+	public String findUsername(int userId) {
+		return userDAO.findUsername(userId);
+	}
 }

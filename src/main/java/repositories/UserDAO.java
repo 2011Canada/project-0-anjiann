@@ -68,6 +68,27 @@ public class UserDAO extends DAO {
 		return null;
 	}
 	
+	public String findUsername(int userId) {
+		try {
+			Connection conn = cf.getConnection();
+
+			String queryString = "select * from \"users\" where \"user_id\" = ? ;";
+			PreparedStatement query = conn.prepareStatement(queryString);
+			query.setInt(1, userId);
+			
+			ResultSet res = query.executeQuery();
+
+			if(res.next()) {				
+				return res.getString("username");
+			} 
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public boolean findUser(String username) {
 		try {
 			Connection conn = cf.getConnection();

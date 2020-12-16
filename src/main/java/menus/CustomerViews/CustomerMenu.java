@@ -10,7 +10,7 @@ public class CustomerMenu extends Menu {
 	@Override
 	public void manageUserInput() {
 		System.out.println("Please enter the option number");
-		Account account = accountService.findAccount(BankLauncher.getCurrentUser());
+		Account account = accountService.findAccount(BankLauncher.getCurrentUser().getUserId());
 		try {
 			if(account == null) {
 				System.out.println("1) apply for account");
@@ -21,21 +21,13 @@ public class CustomerMenu extends Menu {
 				}
 				BankLauncher.menuSelector.moveToSubMenu(0);
 			} else {
-				lines.add(() -> "1) view balance");			
-				lines.add(() -> "2) withdraw");
-				lines.add(() -> "3) deposit");
-				lines.add(() -> "4) transfers");
-				
+				System.out.println("1) " + account.getName());
 				String input = userInput.nextLine();
 				int choice = Integer.parseInt(input);
-				switch(choice) {
-					case 1: BankLauncher.menuSelector.moveToSubMenu(1); break;
-					case 2: BankLauncher.menuSelector.moveToSubMenu(2); break;
-					case 3: BankLauncher.menuSelector.moveToSubMenu(3); break;
-					case 4: BankLauncher.menuSelector.moveToSubMenu(4); break;
-					default: throw new NumberFormatException();
+				if(choice != 1) {
+					throw new NumberFormatException();
 				}
-
+				BankLauncher.menuSelector.moveToSubMenu(1);
 			}
 		}
 		catch(NumberFormatException e) {
