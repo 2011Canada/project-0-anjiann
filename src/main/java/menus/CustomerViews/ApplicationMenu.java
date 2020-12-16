@@ -17,6 +17,7 @@ public class ApplicationMenu extends Menu {
 		try {
 			double initialAmount = Double.parseDouble(input);
 			accountService.createAccount(BankLauncher.getCurrentUser(), initialAmount);
+			BankLauncher.menuSelector.returnToPrevious();
 		} catch(NumberFormatException e) {
 			e.printStackTrace();
 		}

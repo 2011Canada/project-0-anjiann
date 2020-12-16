@@ -3,12 +3,6 @@ package menus;
 import launcher.BankLauncher;
 import services.*;
 public class RegisterMenu extends Menu {
-	private UserService userService;
-
-	public RegisterMenu(UserService userService) {
-		this.userService = userService;
-	}
-	
 	@Override
 	public void manageUserInput() {
 		System.out.println("Please Enter your Username:");

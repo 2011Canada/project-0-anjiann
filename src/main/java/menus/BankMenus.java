@@ -32,10 +32,10 @@ public class BankMenus {
 		AccountService accountService = ServiceProvider.getInstance().getAccountService();
 		
 		mainMenu = new MainMenu();
-		loginMenu = new LoginMenu(userService);
-		registerMenu = new RegisterMenu(userService);
+		loginMenu = new LoginMenu();
+		registerMenu = new RegisterMenu();
 		
-		customerMenu = new CustomerMenu(userService, accountService);
+		customerMenu = new CustomerMenu();
 		applicationMenu = new ApplicationMenu();
 		accountMenu = new AccountMenu();
 		balanceMenu = new BalanceMenu();

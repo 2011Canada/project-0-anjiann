@@ -5,12 +5,6 @@ import models.*;
 import services.UserService;
 
 public class LoginMenu extends Menu {
-	private UserService userService;
-
-	public LoginMenu(UserService userService) {
-		this.userService = userService;
-	}
-	
 	@Override
 	public void manageUserInput() {
 		System.out.println("Please Enter your Username");
